@@ -3,7 +3,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 from backend.routes.agent_routes import router as agent_router
-from backend.config import settings, get_system_status
+from backend.config import settings, get_system_status, BASE_DIR
 
 app = FastAPI(
     title="AI Newsletter Agent API",
@@ -32,8 +32,19 @@ def health_check():
     return {"status": "ok", "system": get_system_status()}
 
 # Serve built frontend if dist exists (for Docker & full-stack single-port deployment)
-frontend_dist = os.path.join(settings.BASE_DIR, "frontend", "dist")
-if os.path.exists(frontend_dist):
+candidate_dists = [
+    str(BASE_DIR / "frontend" / "dist"),
+    os.path.join(os.getcwd(), "frontend", "dist"),
+    os.path.join(os.getcwd(), "dist"),
+]
+
+frontend_dist = None
+for dist_path in candidate_dists:
+    if os.path.exists(dist_path) and os.path.isdir(dist_path):
+        frontend_dist = dist_path
+        break
+
+if frontend_dist:
     app.mount("/", StaticFiles(directory=frontend_dist, html=True), name="frontend")
 else:
     @app.get("/")

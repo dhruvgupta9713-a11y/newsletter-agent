@@ -16,6 +16,8 @@ OUTPUT_DIR = (BASE_DIR / raw_output_dir).resolve() if not Path(raw_output_dir).i
 OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
 
 class Settings:
+    BASE_DIR: Path = BASE_DIR
+    BACKEND_DIR: Path = BACKEND_DIR
     OPENAI_API_KEY: str = os.getenv("OPENAI_API_KEY", "").strip()
     OPENAI_MODEL: str = os.getenv("OPENAI_MODEL", "gpt-4o").strip()
     TAVILY_API_KEY: str = os.getenv("TAVILY_API_KEY", "").strip()

@@ -1,0 +1,23 @@
+{
+  "name": "ai-newsletter-agent",
+  "version": "1.0.0",
+  "description": "Autonomous AI Newsletter Agent using LangGraph, FastAPI, and React Vite",
+  "scripts": {
+    "dev:backend": "uvicorn backend.main:app --reload --host 0.0.0.0 --port 8000",
+    "dev:frontend": "npm --prefix frontend run dev",
+    "dev": "npm run dev:frontend",
+    "build:frontend": "npm --prefix frontend run build",
+    "test:backend": "pytest backend/tests -v",
+    "agent:run": "python run_newsletter_agent.py"
+  },
+  "keywords": [
+    "ai-agent",
+    "langgraph",
+    "fastapi",
+    "react",
+    "autonomous-agent",
+    "newsletter"
+  ],
+  "author": "Antigravity Senior AI Engineer",
+  "license": "MIT"
+}
